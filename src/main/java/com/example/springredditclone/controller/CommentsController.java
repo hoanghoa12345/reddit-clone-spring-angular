@@ -23,7 +23,7 @@ public class CommentsController {
         commentService.save(commentDto);
         return new ResponseEntity<>(CREATED);
     }
-
+/*
     @GetMapping
     public ResponseEntity<List<CommentsDto>> getAllCommentsForPost(@PathVariable Long postId){
         return status(OK)
@@ -33,5 +33,5 @@ public class CommentsController {
     @GetMapping
     public void getAllCommentsForUser(@PathVariable String username){
         commentService.getAllCommentsForUser(username);
-    }
+    }*/
 }

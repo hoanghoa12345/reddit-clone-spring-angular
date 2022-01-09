@@ -11,10 +11,10 @@ import com.example.springredditclone.repository.CommentRepository;
 import com.example.springredditclone.repository.PostRepository;
 import com.example.springredditclone.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -51,7 +51,12 @@ public class CommentService {
                 .map(commentMapper::mapToDto).collect(toList());
     }
 
-    public void getAllCommentsForUser(String username) {
-        
+    public List<CommentsDto> getAllCommentsForUser(String username) {
+        User user = userRepository.findByUsername((username))
+                .orElseThrow(() -> new UsernameNotFoundException(username));
+        return commentRepository.findAllByUser(user)
+                .stream()
+                .map(commentMapper::mapToDto)
+                .collect(toList());
     }
 }

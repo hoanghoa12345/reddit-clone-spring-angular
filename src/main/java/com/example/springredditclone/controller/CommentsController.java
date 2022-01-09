@@ -23,15 +23,17 @@ public class CommentsController {
         commentService.save(commentDto);
         return new ResponseEntity<>(CREATED);
     }
-/*
-    @GetMapping
+
+        @GetMapping("/by-post/{postId}")
     public ResponseEntity<List<CommentsDto>> getAllCommentsForPost(@PathVariable Long postId){
         return status(OK)
                 .body(commentService.getAllCommentsForPost(postId));
     }
 
-    @GetMapping
-    public void getAllCommentsForUser(@PathVariable String username){
-        commentService.getAllCommentsForUser(username);
-    }*/
+    @GetMapping("/by-user/{userName}")
+    public ResponseEntity<List<CommentsDto>> getAllCommentsForUser(@PathVariable String userName){
+        return ResponseEntity.status(OK)
+                .body(commentService.getAllCommentsForUser(userName));
+    }
+
 }

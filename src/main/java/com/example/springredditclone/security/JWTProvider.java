@@ -22,8 +22,6 @@ import static java.util.Date.from;
 public class JWTProvider {
 
     private KeyStore keyStore;
-    @Value("${jwt.expiration.time}")
-    private Long jwtExpirationInMillis;
     @PostConstruct
     public void init() {
         try {
@@ -40,9 +38,7 @@ public class JWTProvider {
         User principal = (User) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject(principal.getUsername())
-                .setIssuedAt(from(Instant.now()))
                 .signWith(getPrivateKey())
-                .setExpiration(from(Instant.now().plusMillis(jwtExpirationInMillis)))
                 .compact();
     }
 
@@ -50,7 +46,7 @@ public class JWTProvider {
         try {
             return (PrivateKey) keyStore.getKey("springblog", "secret".toCharArray());
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e) {
-            throw new SpringRedditException("Exception occured while retrieving public key from keystore", e);
+            throw new SpringRedditException("Exception occurred while retrieving public key from keystore", e);
         }
     }
 
@@ -77,10 +73,6 @@ public class JWTProvider {
                 .getBody();
 
         return claims.getSubject();
-    }
-
-    public Long getJwtExpirationInMillis() {
-        return jwtExpirationInMillis;
     }
 
 }

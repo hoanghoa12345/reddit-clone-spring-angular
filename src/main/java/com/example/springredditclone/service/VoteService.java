@@ -8,12 +8,14 @@ import com.example.springredditclone.model.Vote;
 import com.example.springredditclone.repository.PostRepository;
 import com.example.springredditclone.repository.VoteRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 import static com.example.springredditclone.model.VoteType.UPVOTE;
 
+@Service
 @AllArgsConstructor
 public class VoteService {
 
